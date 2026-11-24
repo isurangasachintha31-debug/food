@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TASTY BITES · Premium Recipes & Digital Cookbooks</title>
+  <meta name="description" content="Discover delicious recipes with simple steps. Shop premium digital cookbooks. Chicken, seafood, pasta, desserts & more.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- RESET & GLOBAL ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0b0b0b;
+      color: #f5f5f5;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    a { text-decoration: none; color: inherit; }
+    button, .btn {
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.25s ease;
+    }
+    img { max-width: 100%; display: block; }
+
+    /* ---------- COLORS & ACCENTS ---------- */
+    :root {
+      --black: #000000;
+      --charcoal: #1a1a1a;
+      --charcoal-light: #232323;
+      --gold: #f5b342;
+      --gold-dark: #d9992e;
+      --white: #ffffff;
+      --off-white: #f0f0f0;
+      --gray: #a0a0a0;
+    }
+
+    /* ---------- TYPOGRAPHY ---------- */
+    .tagline {
+      font-size: 0.875rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+    }
+    .section-title {
+      font-size: 2.5rem;
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+    }
+    .section-sub {
+      color: var(--gray);
+      font-size: 1.125rem;
+      max-width: 600px;
+    }
+
+    /* ---------- BUTTONS ---------- */
+    .btn-primary {
+      background-color: var(--gold);
+      color: var(--black);
+      padding: 14px 34px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 14px rgba(245, 179, 66, 0.3);
+      border: 1px solid transparent;
+    }
+    .btn-primary:hover {
+      background-color: #ffc85c;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(245, 179, 66, 0.4);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,0.25);
+      color: var(--white);
+      padding: 13px 33px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+    .btn-small {
+      padding: 8px 18px;
+      font-size: 0.875rem;
+      border-radius: 30px;
+      background: var(--gold);
+      color: var(--black);
+      font-weight: 700;
+    }
+    .btn-small:hover { background: #ffc85c; }
+
+    /* ---------- HEADER / NAV ---------- */
+    header {
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 800;
+      font-size: 2rem;
+      letter-spacing: -0.02em;
+      color: var(--white);
+    }
+    .logo span { color: var(--gold); }
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 32px;
+      align-items: center;
+    }
+    nav a {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #d0d0d0;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--gold); }
+    .nav-cta { 
+      background: var(--gold); 
+      color: var(--black); 
+      padding: 8px 22px; 
+      border-radius: 30px; 
+      font-weight: 700; 
+      font-size: 0.875rem;
+    }
+    .nav-cta:hover { background: #ffc85c; }
+    .hamburger { display: none; font-size: 1.8rem; color: white; background: none; }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      position: relative;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 100%), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+      background-size: cover;
+      margin-bottom: 60px;
+    }
+    .hero-content {
+      max-width: 720px;
+      padding: 100px 0;
+    }
+    .hero .tagline { margin-bottom: 16px; display: block; }
+    .hero h1 {
+      font-size: 4.5rem;
+      line-height: 1.05;
+      margin-bottom: 24px;
+      color: white;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    .hero p {
+      font-size: 1.25rem;
+      color: #e0e0e0;
+      margin-bottom: 32px;
+      max-width: 550px;
+      line-height: 1.6;
+    }
+    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    /* ---------- CARDS & GRIDS ---------- */
+    .recipe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 28px;
+      margin: 36px 0;
+    }
+    .recipe-card {
+      background: var(--charcoal);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.2s;
+      box-shadow: 0 12px 30px -10px rgba(0,0,0,0.6);
+      display: flex;
+      flex-direction: column;
+    }
+    .recipe-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 40px -12px rgba(0,0,0,0.8);
+      background: #202020;
+    }
+    .recipe-card-img {
+      height: 240px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .recipe-card-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.03em;
+      border: 1px solid rgba(245,179,66,0.3);
+    }
+    .recipe-card-content {
+      padding: 22px 22px 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .recipe-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+      color: white;
+      line-height: 1.2;
+    }
+    .recipe-card p {
+      color: #b0b0b0;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+    .recipe-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--gray);
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin-top: auto;
+    }
+    .recipe-meta span { display: flex; align-items: center; gap: 6px; }
+    .view-btn {
+      background: transparent;
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 6px 0;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .view-btn:hover { border-bottom-color: var(--gold); }
+
+    /* ---------- CATEGORIES ---------- */
+    .category-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin: 36px 0 20px;
+    }
+    .pill {
+      background: var(--charcoal-light);
+      padding: 12px 28px;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: white;
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .pill:hover {
+      background: var(--gold);
+      color: black;
+      transform: translateY(-3px);
+    }
+
+    /* ---------- COOKBOOK SHOP ---------- */
+    .cookbook-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 28px;
+      margin: 40px 0;
+    }
+    .cookbook-card {
+      background: linear-gradient(145deg, #1e1e1e, #141414);
+      border-radius: 28px;
+      padding: 24px 22px 26px;
+      border: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+    .cookbook-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(245,179,66,0.4);
+      box-shadow: 0 20px 40px -12px rgba(245,179,66,0.15);
+    }
+    .mockup-3d {
+      width: 100%;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      perspective: 800px;
+    }
+    .book-3d {
+      width: 140px;
+      height: 200px;
+      background: linear-gradient(135deg, #2a2a2a, #111);
+      border-radius: 8px 16px 16px 8px;
+      box-shadow: 12px 12px 24px rgba(0,0,0,0.8), -4px 0 12px rgba(0,0,0,0.5), inset -4px 0 8px rgba(255,255,255,0.05);
+      transform: rotateY(-12deg) rotateX(4deg) scale(1.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-left: 6px solid var(--gold);
+      position: relative;
+      transition: transform 0.3s ease;
+      background-image: repeating-linear-gradient(45deg, rgba(245,179,66,0.05) 0px, rgba(245,179,66,0.05) 2px, transparent 2px, transparent 8px);
+    }
+    .book-3d::before {
+      content: "TASTY BITES";
+      font-family: 'Playfair Display', serif;
+      font-size: 0.6rem;
+      letter-spacing: 3px;
+      color: var(--gold);
+      position: absolute;
+      top: 20px;
+      font-weight: 700;
+    }
+    .book-3d::after {
+      content: attr(data-title);
+      font-family: 'Playfair Display', serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: white;
+      text-align: center;
+      padding: 0 8px;
+      line-height: 1.2;
+      margin-top: 20px;
+    }
+    .cookbook-card:hover .book-3d {
+      transform: rotateY(-4deg) rotateX(2deg) scale(1.08);
+    }
+    .cookbook-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+    .cookbook-card .desc {
+      color: #a8a8a8;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+    .cookbook-meta {
+      display: flex;
+      justify-content: space-between;
+      margin: 12px 0 16px;
+      font-size: 0.85rem;
+      color: var(--gray);
+    }
+    .price {
+      font-weight: 800;
+      color: var(--gold);
+      font-size: 1.3rem;
+      letter-spacing: -0.02em;
+    }
+    .button-group {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .button-group .btn-outline {
+      padding: 9px 16px;
+      font-size: 0.85rem;
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    /* ---------- PROMO BANNER ---------- */
+    .promo-banner {
+      background: linear-gradient(120deg, #0a0a0a 0%, #1e1a14 100%);
+      border-radius: 40px;
+      padding: 60px 48px;
+      margin: 80px 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      border: 1px solid rgba(245,179,66,0.25);
+      box-shadow: 0 30px 50px -20px rgba(0,0,0,0.8);
+    }
+    .promo-banner h2 {
+      font-size: 2.8rem;
+      line-height: 1.1;
+      max-width: 600px;
+    }
+    .promo-banner h2 span { color: var(--gold); }
+    .promo-banner p { color: #bdbdbd; max-width: 460px; margin: 16px 0 0; }
+
+    /* ---------- RECIPE DETAIL PAGE (SAMPLE) ---------- */
+    .recipe-detail {
+      display: none; /* hidden by default, could be toggled by JS for demo */
+    }
+    .recipe-detail.active { display: block; }
+    .recipe-detail-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+      background: var(--charcoal);
+      border-radius: 36px;
+      overflow: hidden;
+    }
+    .recipe-detail-image {
+      height: 100%;
+      min-height: 400px;
+      background-size: cover;
+      background-position: center;
+    }
+    .recipe-detail-info { padding: 40px 40px 40px 24px; }
+    .recipe-detail-info h2 { font-size: 2.8rem; margin: 12px 0; }
+    .recipe-detail-info .meta-row { display: flex; flex-wrap: wrap; gap: 24px; margin: 24px 0; color: #ccc; }
+    .recipe-detail-info .meta-item { display: flex; flex-direction: column; }
+    .meta-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gold); }
+    .meta-value { font-weight: 600; font-size: 1.1rem; }
+    .recipe-detail-content { display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; background: var(--charcoal); border-radius: 36px; padding: 40px; margin-bottom: 60px; }
+    .ingredients ul { list-style: none; margin-top: 20px; }
+    .ingredients li { padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; gap: 10px; }
+    .steps ol { margin-top: 20px; padding-left: 20px; }
+    .steps li { margin-bottom: 24px; line-height: 1.6; color: #d0d0d0; }
+    .pinterest-share { margin-top: 24px; display: flex; gap: 12px; }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 60px 0 30px;
+      margin-top: 80px;
+      background: #0a0a0a;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    .footer-brand p { color: #999; margin: 16px 0; max-width: 260px; }
+    .social-links { display: flex; gap: 16px; margin-top: 20px; }
+    .social-links a { color: #aaa; font-size: 0.9rem; transition: color 0.2s; }
+    .social-links a:hover { color: var(--gold); }
+    .footer-col h4 { color: white; margin-bottom: 18px; font-family: 'Inter', sans-serif; font-weight: 600; letter-spacing: 0.02em; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a { color: #9a9a9a; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 30px;
+      text-align: center;
+      color: #666;
+      font-size: 0.85rem;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 1024px) {
+      .hero h1 { font-size: 3.5rem; }
+      .recipe-detail-header { grid-template-columns: 1fr; }
+      .recipe-detail-info { padding: 30px; }
+      .recipe-detail-content { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .header-inner { flex-wrap: wrap; }
+      nav ul { display: none; }
+      .hamburger { display: block; }
+      .hero h1 { font-size: 2.8rem; }
+      .hero p { font-size: 1.1rem; }
+      .section-title { font-size: 2rem; }
+      .promo-banner { padding: 40px 28px; }
+      .promo-banner h2 { font-size: 2rem; }
+      .recipe-grid { grid-template-columns: 1fr 1fr; }
+      .cookbook-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .recipe-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2.3rem; }
+      .hero-buttons .btn-primary, .hero-buttons .btn-outline { width: 100%; }
+    }
+
+    /* ---------- UTILITIES ---------- */
+    .mb-2 { margin-bottom: 8px; }
+    .mb-4 { margin-bottom: 24px; }
+    .mt-4 { margin-top: 24px; }
+    .text-center { text-align: center; }
+    .flex-between { display: flex; justify-content: space-between; align-items: center; }
+    .gap-2 { gap: 8px; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container header-inner">
+      <a href="#" class="logo">TASTY<span>BITES</span></a>
+      <nav>
+        <ul>
+          <li><a href="#">Recipes</a></li>
+          <li><a href="#">Categories</a></li>
+          <li><a href="#">Cookbooks</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#" class="nav-cta">Shop Now</a></li>
+        </ul>
+      </nav>
+      <button class="hamburger">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <span class="tagline">Delicious Recipes. Simple Steps.</span>
+          <h1>Discover Your Next Favorite Recipe</h1>
+          <p>Simple ingredients. Incredible flavors. Recipes worth making again.</p>
+          <div class="hero-buttons">
+            <a href="#" class="btn-primary">Explore Recipes</a>
+            <a href="#" class="btn-outline">Shop Recipe Books</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED RECIPES -->
+    <section class="container">
+      <div class="flex-between mb-4" style="flex-wrap: wrap; gap: 16px;">
+        <div>
+          <h2 class="section-title">Featured Recipes</h2>
+          <p class="section-sub">Handpicked favorites from our kitchen to yours.</p>
+        </div>
+        <a href="#" class="btn-outline" style="padding: 10px 24px;">View All</a>
+      </div>
+      <div class="recipe-grid">
+        <!-- Card 1 -->
+        <article class="recipe-card">
+          <div class="recipe-card-img" style="background-image: url('https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=1974&auto=format&fit=crop');">
+            <span class="recipe-card-badge">Chicken</span>
+          </div>
+          <div class="recipe-card-content">
+            <h3>Garlic Butter Chicken</h3>
+            <p>Juicy chicken breasts in a rich garlic butter sauce. Ready in 30 minutes.</p>
+            <div class="recipe-meta">
+              <span>⏱ 30 min</span>
+              <a href="#" class="view-btn">View Recipe →</a>
+            </div>
+          </div>
+        </article>
+        <!-- Card 2 -->
+        <article class="recipe-card">
+          <div class="recipe-card-img" style="background-image: url('https://images.unsplash.com/photo-1563379926898-05f4575a45d8?q=80&w=2070&auto=format&fit=crop');">
+            <span class="recipe-card-badge">Pasta</span>
+          </div>
+          <div class="recipe-card-content">
+            <h3>Creamy Tuscan Pasta</h3>
+            <p>Sun-dried tomatoes, spinach, and a silky parmesan cream sauce.</p>
+            <div class="recipe-meta">
+              <span>⏱ 25 min</span>
+              <a href="#" class="view-btn">View Recipe →</a>
+            </div>
+          </div>
+        </article>
+        <!-- Card 3 -->
+        <article class="recipe-card">
+          <div class="recipe-card-img" style="background-image: url('https://images.unsplash.com/photo-1551024506-0bccd828d307?q=80&w=1964&auto=format&fit=crop');">
+            <span class="recipe-card-badge">Dessert</span>
+          </div>
+          <div class="recipe-card-content">
+            <h3>Molten Chocolate Cake</h3>
+            <p>Decadent chocolate cake with a gooey center. Impress your guests.</p>
+            <div class="recipe-meta">
+              <span>⏱ 20 min</span>
+              <a href="#" class="view-btn">View Recipe →</a>
+            </div>
+          </div>
+        </article>
+        <!-- Card 4 -->
+        <article class="recipe-card">
+          <div class="recipe-card-img" style="background-image: url('https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=2070&auto=format&fit=crop');">
+            <span class="recipe-card-badge">Seafood</span>
+          </div>
+          <div class="recipe-card-content">
+            <h3>Lemon Herb Salmon</h3>
+            <p>Flaky salmon with fresh herbs, lemon, and a touch of honey.</p>
+            <div class="recipe-meta">
+              <span>⏱ 22 min</span>
+              <a href="#" class="view-btn">View Recipe →</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="container" style="margin-top: 60px;">
+      <h2 class="section-title">Popular Categories</h2>
+      <div class="category-pills">
+        <a href="#" class="pill">🍗 Chicken</a>
+        <a href="#" class="pill">🐟 Seafood</a>
+        <a href="#" class="pill">🍝 Pasta & Noodles</a>
+        <a href="#" class="pill">⚡ Quick & Easy</a>
+        <a href="#" class="pill">🍰 Desserts & Baking</a>
+        <a href="#" class="pill">🥞 Breakfast</a>
+        <a href="#" class="pill">🥗 Healthy</a>
+      </div>
+    </section>
+
+    <!-- TRENDING / LATEST -->
+    <section class="container" style="margin-top: 70px;">
+      <div class="flex-between mb-4">
+        <div>
+          <h2 class="section-title">Trending Now</h2>
+          <p class="section-sub">What everyone is cooking this week.</p>
+        </div>
+        <a href="#" class="btn-outline" style="padding: 10px 24px;">See All</a>
+      </div>
+      <div class="recipe-grid">
+        <article class="recipe-card">
+          <div class="recipe-card-img" style="background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1981&auto=format&fit=crop');">
+            <span class="recipe-card-badge">Quick & Easy</span>
+          </div>
+          <div class="recipe-card-content">
+            <h3>15-Minute Margherita Pizza</h3>
+            <p>Fresh basil, mozzarella, and a crispy crust—faster than delivery.</p>
+            <div class="recipe-meta"><span>⏱ 15 min</span><a href="#" class="view-btn">View Recipe →</a></div>
+          </div>
+        </article>
+        <article class="recipe-card">
+          <div class="recipe-card-img" style="background-image: url('https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=1974&auto=format&fit=crop');">
+            <span class="recipe-card-badge">Healthy</span>
+          </div>
+          <div class="recipe-card-content">
+            <h3>Mediterranean Quinoa Bowl</h3>
+            <p>Packed with veggies, feta, and a lemon-tahini dressing.</p>
+            <div class="recipe-meta"><span>⏱ 25 min</span><a href="#" class="view-btn">View Recipe →</a></div>
+          </div>
+        </article>
+        <article class="recipe-card">
+          <div class="recipe-card-img" style="background-image: url('https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?q=80&w=2070&auto=format&fit=crop');">
+            <span class="recipe-card-badge">Breakfast</span>
+          </div>
+          <div class="recipe-card-content">
+            <h3>Fluffy Buttermilk Pancakes</h3>
+            <p>Light, airy pancakes with a golden crust. Weekend essential.</p>
+            <div class="recipe-meta"><span>⏱ 20 min</span><a href="#" class="view-btn">View Recipe →</a></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- COOKBOOK STORE -->
+    <section class="container" style="margin-top: 80px;">
+      <div class="flex-between mb-4">
+        <div>
+          <h2 class="section-title">Premium Digital Cookbooks</h2>
+          <p class="section-sub">Instantly downloadable PDFs. Cook like a pro.</p>
+        </div>
+        <a href="#" class="btn-outline" style="padding: 10px 24px;">Visit Shop</a>
+      </div>
+      <div class="cookbook-grid">
+        <!-- Cookbook 1 -->
+        <div class="cookbook-card">
+          <div class="mockup-3d">
+            <div class="book-3d" data-title="The Chicken Bible"></div>
+          </div>
+          <h3>The Chicken Bible</h3>
+          <p class="desc">50+ foolproof chicken recipes from crispy roast to savory stir-fries.</p>
+          <div class="cookbook-meta"><span>📖 52 recipes</span><span class="price">$19</span></div>
+          <div class="button-group">
+            <a href="#" class="btn-outline" style="flex:1; text-align:center;">Preview</a>
+            <a href="#" class="btn-primary" style="flex:1; padding: 9px 0;">Buy Now</a>
+          </div>
+        </div>
+        <!-- Cookbook 2 -->
+        <div class="cookbook-card">
+          <div class="mockup-3d">
+            <div class="book-3d" data-title="Pasta Perfection"></div>
+          </div>
+          <h3>Pasta Perfection</h3>
+          <p class="desc">From classic carbonara to creamy Tuscan—40 pasta dishes you'll love.</p>
+          <div class="cookbook-meta"><span>📖 40 recipes</span><span class="price">$15</span></div>
+          <div class="button-group">
+            <a href="#" class="btn-outline" style="flex:1; text-align:center;">Preview</a>
+            <a href="#" class="btn-primary" style="flex:1; padding: 9px 0;">Buy Now</a>
+          </div>
+        </div>
+        <!-- Cookbook 3 -->
+        <div class="cookbook-card">
+          <div class="mockup-3d">
+            <div class="book-3d" data-title="Sweet Indulgence"></div>
+          </div>
+          <h3>Sweet Indulgence</h3>
+          <p class="desc">35 decadent desserts—cakes, cookies, and chocolate delights.</p>
+          <div class="cookbook-meta"><span>📖 35 recipes</span><span class="price">$17</span></div>
+          <div class="button-group">
+            <a href="#" class="btn-outline" style="flex:1; text-align:center;">Preview</a>
+            <a href="#" class="btn-primary" style="flex:1; padding: 9px 0;">Buy Now</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROMO BANNER -->
+    <div class="container">
+      <div class="promo-banner">
+        <div>
+          <span class="tagline">Limited Time Offer</span>
+          <h2>Bring More Flavor <span>Into Your Kitchen</span></h2>
+          <p>Get our best-selling "Weeknight Favorites" cookbook with 60 quick & easy recipes. Instant PDF download.</p>
+        </div>
+        <a href="#" class="btn-primary" style="font-size: 1.1rem; padding: 16px 40px;">Get The Cookbook</a>
+      </div>
+    </div>
+
+    <!-- SAMPLE RECIPE DETAIL (for demonstration) -->
+    <section class="container" style="margin-top: 80px;">
+      <div class="recipe-detail active">
+        <div class="recipe-detail-header">
+          <div class="recipe-detail-image" style="background-image: url('https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=1974&auto=format&fit=crop');"></div>
+          <div class="recipe-detail-info">
+            <span class="tagline">Chicken Recipe</span>
+            <h2>Garlic Butter Chicken</h2>
+            <p style="color: #b0b0b0; margin-bottom: 20px;">Juicy chicken breasts seared to golden perfection and smothered in a rich garlic butter sauce. This 30-minute meal is a weeknight hero.</p>
+            <div class="meta-row">
+              <div class="meta-item"><span class="meta-label">Prep</span><span class="meta-value">10 min</span></div>
+              <div class="meta-item"><span class="meta-label">Cook</span><span class="meta-value">20 min</span></div>
+              <div class="meta-item"><span class="meta-label">Total</span><span class="meta-value">30 min</span></div>
+              <div class="meta-item"><span class="meta-label">Serves</span><span class="meta-value">4</span></div>
+            </div>
+            <div class="pinterest-share">
+              <a href="#" class="btn-small">📌 Save to Pinterest</a>
+              <a href="#" class="btn-outline" style="padding: 9px 18px; font-size:0.85rem;">Print Recipe</a>
+            </div>
+          </div>
+        </div>
+        <div class="recipe-detail-content">
+          <div class="ingredients">
+            <h3 style="font-size:1.8rem;">Ingredients</h3>
+            <ul>
+              <li>4 boneless, skinless chicken breasts</li>
+              <li>4 tbsp unsalted butter, divided</li>
+              <li>6 cloves garlic, minced</li>
+              <li>1 tsp salt</li>
+              <li>½ tsp black pepper</li>
+              <li>1 tsp paprika</li>
+              <li>½ cup chicken broth</li>
+              <li>1 tbsp fresh lemon juice</li>
+              <li>2 tbsp fresh parsley, chopped</li>
+            </ul>
+          </div>
+          <div class="steps">
+            <h3 style="font-size:1.8rem;">Instructions</h3>
+            <ol>
+              <li>Season chicken breasts with salt, pepper, and paprika on both sides.</li>
+              <li>Melt 2 tablespoons butter in a large skillet over medium-high heat. Add chicken and cook 6-7 minutes per side until golden and cooked through. Remove and set aside.</li>
+              <li>In the same skillet, reduce heat to medium. Add remaining butter and garlic. Sauté for 30 seconds until fragrant.</li>
+              <li>Pour in chicken broth and lemon juice. Scrape up any browned bits. Simmer for 2-3 minutes.</li>
+              <li>Return chicken to the pan, spoon sauce over. Garnish with parsley and serve.</li>
+            </ol>
+            <p style="margin-top: 20px; color: var(--gold); font-weight: 600;">💡 Tip: Pair with crusty bread to soak up the garlic butter sauce.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo">TASTY<span>BITES</span></div>
+          <p>Delicious recipes. Simple steps. Made with love for home cooks everywhere.</p>
+          <div class="social-links">
+            <a href="#">Pinterest</a>
+            <a href="#">Instagram</a>
+            <a href="#">TikTok</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Recipes</h4>
+          <ul>
+            <li><a href="#">Chicken</a></li>
+            <li><a href="#">Seafood</a></li>
+            <li><a href="#">Pasta</a></li>
+            <li><a href="#">Desserts</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Cookbooks</h4>
+          <ul>
+            <li><a href="#">The Chicken Bible</a></li>
+            <li><a href="#">Pasta Perfection</a></li>
+            <li><a href="#">Sweet Indulgence</a></li>
+            <li><a href="#">All Cookbooks</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 TASTY BITES. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
